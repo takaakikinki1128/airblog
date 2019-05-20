@@ -1,0 +1,20 @@
+<div class ="contents">
+  <% @tweets.each do |tweet| %>
+    <div class ="content_post">
+    <%= simple_format(tweet.text) %>
+      <span class ="name">
+        <a href="">
+          <span>投稿者</span><%= tweet.user.nickname %>
+          </a>
+      </span>
+    <% if user_signed_in? && current_user.id == tweet.user.id %>
+      <div class ="remove">
+        <%= link_to '編集',"/tweets/#{tweet.id}/edit", method: :get %>
+        <%= link_to '削除', "/tweets/#{tweet.id}", method: :delete %>
+      </div>
+    <% end %>
+      
+    </div>
+  <% end %>
+ <%= paginate(@tweets) %> 
+</div>

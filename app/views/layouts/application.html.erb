@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Airblog</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header class ="header">
+      <div class ="header_bar">
+        <h1 class ="hader_name">Airblog</h1>
+          <% if user_signed_in? %>
+            <div class ="user_nav">
+              <h2><%= current_user.nickname %>
+                <ul class ="user_mypage">
+                  <li>
+                    <a href="/users/<%= current_user.id %>">マイページ</a>
+                    <%= link_to "ログアウト",destroy_user_session_path, method: :delete %>
+                  </li>
+                </ul>
+              </h2>
+              <a class ="post" href="/tweets/new">投稿する</a>
+            </div>
+          <% else %>
+            <div class ="header_name_1">
+            <li>
+              <%= link_to "ログイン", new_user_session_path, class: 'post' %>
+              <%= link_to "新規登録", new_user_registration_path, class: 'post' %>
+            </li>
+            </div>
+          <% end %>
+      </div>
+    </header>  
+    <%= yield %>
+  </body>
+</html>
